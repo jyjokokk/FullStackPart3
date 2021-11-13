@@ -63,9 +63,14 @@ app.delete('/api/persons/:id', (req, res) => {
 
 app.post('/api/persons', (req, res) => {
   const body = req.body
-  if (!body.name) {
+  if (!body.name || !body.number) {
     return res.status(400).json({
-      error: 'Name missing from request'
+      error: 'Request must contain name and number.'
+    })
+  }
+  if (persons.find(person => person.name === body.name)) {
+    return res.status(409).json({
+      error: 'Duplicate data item'
     })
   }
   const person = {
