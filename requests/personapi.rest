@@ -2,7 +2,7 @@ GET http://localhost:3001/api/persons
 
 ###
 
-GET http://localhost:3001/api/persons/112
+GET http://localhost:3001/api/persons/120
 
 ###
 
@@ -11,4 +11,14 @@ GET http://localhost:3001/api/persons/1
 
 ###
 
-DELETE http://localhost:3001/api/persons/1
+DELETE http://localhost:3001/api/persons/15
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Jyrki Kokkola",
+    "number": "123-123"
+}
