@@ -22,7 +22,6 @@ let persons = [
 	}
 ]
 
-
 app.get('/info', (req, res) => {
 	const message = `Phonebook has info of ${persons.length} people.
                   <br></br>
@@ -30,11 +29,9 @@ app.get('/info', (req, res) => {
 	res.send(message)
 })
 
-
 app.get('/api/persons', (req, res) => {
 	res.json(persons)
 })
-
 
 app.get('/api/persons/:id', (req, res) => {
   const id = Number(req.params.id)
@@ -45,6 +42,12 @@ app.get('/api/persons/:id', (req, res) => {
   } else {
     res.status(404).end()
   }
+})
+
+app.delete('/api/persons/:id', (req, res) => {
+  const id = Number(req.params.id)
+  persons = persons.filter(person => person.id !== id)
+  res.status(204).end();
 })
 
 
