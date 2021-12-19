@@ -54,6 +54,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     name: body.name,
     number: body.number
   }
+  // NOTE: this method takes in a normal object
   Person.findByIdAndUpdate(request.params.id, person, { new: true })
     .then(updatedPerson => {
       response.json(updatedPerson)
@@ -73,22 +74,17 @@ app.delete('/api/persons/:id', (request, response, next) => {
 
 app.post('/api/persons', (request, response, next) => {
 	const body = request.body
-	console.log(body.name + ' ' + body.number)
-	if (!body.name || !body.number) {
-		return response.status(400).json({
-			error: 'Request must contain name and number.'
-		})
-	}
 	const person = new Person({
 		name: body.name,
 		number: body.number
 	})
 	person
-		.save()
-		.then((savedPerson) => {
-			response.json(savedPerson)
-		})
-		.catch((error) => next(error))
+    .save()
+		.then(savedPerson => savedPerson.toJSON())
+    .then(savedAndFormattedPerson => {
+      response.json(savedAndFormattedPerson)
+    })
+		.catch(error => next(error))
 })
 
 
@@ -100,9 +96,14 @@ app.use(unknownEndpoint)
 
 const errorHandler = (error, request, response, next) => {
 	console.error(error.message)
-	if (error.name === 'CastError') {
-		return response.status(400).send({ error: 'Malformed id' })
-	}
+  switch(error.name) {
+    case 'CastError':
+      return response.status(400).send({ error: 'Malformed id'})
+      break;
+    case 'ValidationError':
+      return response.status(400).json({ error: error.message })
+      break;
+  }
 	next(error)
 }
 app.use(errorHandler)
