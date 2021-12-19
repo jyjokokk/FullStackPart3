@@ -30,3 +30,13 @@ Content-Type: application/json
     "name": "Matti Virtanen",
     "number": "040-5231309"
 }
+
+###
+
+PUT http://localhost:3001/api/persons/61bed43ec39a5009a07b6e07
+Content-Type: application/json
+
+{
+    "name": "Mika Waltari",
+    "number": "00000"
+}
