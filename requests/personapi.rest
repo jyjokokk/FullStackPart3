@@ -27,8 +27,8 @@ POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-    "name": "Matti Virtanen",
-    "number": "040-5231309"
+    "name": "MattiVirtanen",
+    "number": "055"
 }
 
 ###
@@ -37,6 +37,6 @@ PUT http://localhost:3001/api/persons/61bed43ec39a5009a07b6e07
 Content-Type: application/json
 
 {
-    "name": "Mika Waltari",
-    "number": "00002"
+    "name": "Mikka Waltari",
+    "number": "002"
 }
